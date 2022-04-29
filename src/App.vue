@@ -4,5 +4,11 @@
   </div>
 </template>
 
-<style lang="less" scoped>
+<style lang="less">
+#app {
+  width: 100%;
+  height: 100vh;
+  overflow-y: hidden;
+  overflow-x: hidden;
+}
 </style>
