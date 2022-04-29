@@ -1,14 +1,10 @@
 <template>
-  <div class="home">
-    <el-button>ssssssss</el-button>
-  </div>
+    <div class="container"></div>
 </template>
 
 <script>
-
-
 export default {
-
+    name:'register',
 }
 </script>
 
