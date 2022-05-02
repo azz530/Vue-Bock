@@ -4,7 +4,12 @@
       <div class="title">登录</div>
       <input type="text" v-model="loginForm.username" placeholder="用户名" />
       <input type="password" v-model="loginForm.password" placeholder="密码" />
-      <button>登录</button>
+      <button @click="login">登录</button>
+      <div class="to">
+        <span>还没有账号?</span>
+        <router-link to="/register" class="register">去注册</router-link>
+        <router-link to="/forgetPsw" class="forgetPsw">忘记密码</router-link>
+      </div>
     </div>
     <div class="square">
       <ul>
@@ -36,7 +41,9 @@ export default {
     };
   },
   methods: {
-    Login() {},
+    login() {
+      this.$api.login(this.loginForm);
+    },
   },
 };
 </script>
@@ -61,7 +68,7 @@ export default {
     box-shadow: 0 25px 45px rgba(0, 0, 0, 0.1);
     .title {
       font-size: 24px;
-      margin: 60px auto 70px auto;
+      margin: 60px auto 40px auto;
     }
     input {
       width: 350px;
@@ -86,6 +93,23 @@ export default {
       transition: 0.5s;
       &:hover {
         background: linear-gradient(-200deg, #aac2ee, #80a6f875, #fac0e7);
+      }
+    }
+    .to{
+      font-size: 14px;
+      .register{
+        padding-left: 10px;
+        color: #8db4fc;
+        &:hover{
+          color: #fc7d4a;
+        }
+      }
+      .forgetPsw{
+        color: #ffa3e0;
+        padding-left: 30px;
+        &:hover{
+          color: #fc7d4a;
+        }
       }
     }
   }
