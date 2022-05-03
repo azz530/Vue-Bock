@@ -1,15 +1,39 @@
 <template>
   <div class="container">
     <div class="login_form">
-      <div class="title">登录</div>
-      <input type="text" v-model="loginForm.username" placeholder="用户名" />
-      <input type="password" v-model="loginForm.password" placeholder="密码" />
-      <button>登录</button>
-      <div class="to">
-        <span>还没有账号?</span>
-        <router-link to="/register" class="register">去注册</router-link>
-        <router-link to="/forgetPsw" class="forgetPsw">忘记密码</router-link>
+      <div class="title">注册</div>
+      <input type="text" v-model="userForm.username" placeholder="用户名" />
+      <div class="password">
+        <input
+          type="password"
+          ref="psw"
+          v-model="userForm.password"
+          placeholder="密码"
+        /><i
+          :class="
+            isShowPsw
+              ? 'iconfont icon-yanjing_yincang_o'
+              : 'iconfont icon-yanjing_xianshi_o'
+          "
+          @click="showPsw"
+        ></i>
       </div>
+      <div class="checkPsw">
+        <input
+          type="password"
+          ref="checkPsw"
+          v-model="userForm.checkpassword"
+          placeholder="确认密码"
+        /><i
+          :class="
+            isShowCheckPsw
+              ? 'iconfont icon-yanjing_yincang_o'
+              : 'iconfont icon-yanjing_xianshi_o'
+          "
+          @click="showCheckPsw"
+        ></i>
+      </div>
+      <button @click="register">注册</button>
     </div>
     <div class="square">
       <ul>
@@ -33,15 +57,57 @@
 </template>
 
 <script>
+import tools from '../utils/tools'
 export default {
   name: "register",
   data() {
     return {
-      loginForm: {},
+      userForm: {},
+      isShowPsw: false,
+      isShowCheckPsw: false,
     };
   },
   methods: {
-    Login() {},
+    //密码显示与隐藏
+    showPsw() {
+      this.isShowPsw = !this.isShowPsw;
+      if (this.isShowPsw) {
+        this.$refs.psw.type = "text";
+      } else {
+        this.$refs.psw.type = "password";
+      }
+    },
+    //确认密码显示与隐藏
+    showCheckPsw() {
+      this.isShowCheckPsw = !this.isShowCheckPsw;
+      if (this.isShowCheckPsw) {
+        this.$refs.checkPsw.type = "text";
+      } else {
+        this.$refs.checkPsw.type = "password";
+      }
+    },
+    register(){
+      if(this.userForm.username&&this.userForm.password&&this.userForm.checkpassword){
+        if(this.userForm.password === this.userForm.checkpassword){
+          this.$api.register(this.userForm).then(res=>{
+            console.log(res);
+            if(res.status!==200){
+              if(res.status === 403){
+                return this.$message.error('该用户名已被使用');
+              }
+              return this.$message.error('注册失败');
+            } else {
+              this.$message.success('注册成功');
+              this.$router.push('/login');
+            }
+          });
+        } else {
+          this.$message.error('两次密码不一致');
+        }
+      } else {
+        this.$message.error('请填写用户信息')
+      }
+    }
   },
 };
 </script>
@@ -76,6 +142,32 @@ export default {
       border-bottom: 1px solid #ddd;
       outline: none;
       margin: 12px auto;
+    }
+    .password {
+      position: relative;
+      i {
+        font-size: 18px;
+        position: absolute;
+        right: 10px;
+        bottom: 20px;
+        color: #c5c5c5;
+        &:hover {
+          cursor: pointer;
+        }
+      }
+    }
+    .checkPsw {
+      position: relative;
+      i {
+        font-size: 18px;
+        position: absolute;
+        right: 10px;
+        bottom: 20px;
+        color: #c5c5c5;
+        &:hover {
+          cursor: pointer;
+        }
+      }
     }
     button {
       width: 280px;

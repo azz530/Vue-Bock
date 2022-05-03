@@ -42,7 +42,19 @@ export default {
   },
   methods: {
     login() {
-      this.$api.login(this.loginForm);
+      this.$api.login(this.loginForm).then(res=>{
+        if(res.status !== 200){
+          if(res.status === 400){
+            return this.$message.error('该用户不存在');
+          } else if(res.status === 401){
+            return this.$message.error('密码错误');
+          }
+          return this.$message.error('登录失败');
+        } else {
+          this.$message.success('登录成功');
+          
+        }
+      });
     },
   },
 };
