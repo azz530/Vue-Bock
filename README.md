@@ -1,24 +1,6 @@
 # bock
 
-## Project setup
-```
-npm install
-```
+vue element ui 博客
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
 
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+技术使用：Vue2.0、 Vue-router、Vuex、ElementUI
