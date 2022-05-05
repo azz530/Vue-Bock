@@ -34,7 +34,7 @@
 
 <script>
 export default {
-  name: "forgetPsw",
+  name: "ForgetPsw",
   data() {
     return {
       loginForm: {},
