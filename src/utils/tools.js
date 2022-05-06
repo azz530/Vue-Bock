@@ -6,9 +6,9 @@ function deepCopy(obj) {
     if (obj && typeof obj === 'object') {
         for (let key in obj) {
             if (obj[key] && typeof obj[key] === 'object') {
-                newObj[key] = deepCopy(obj[i]);
+                newObj[key] = deepCopy(obj[key]);
             } else {
-                newObj[key] = obj[i];
+                newObj[key] = obj[key];
             }
         }
     }
