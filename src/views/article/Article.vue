@@ -19,15 +19,40 @@
       </div>
       <el-divider></el-divider>
       <BockItem :bockInfo="bockInfo"></BockItem>
-      <Page :pageInfo="pageInfo"></Page>
+      <Page :pageInfo="pageInfo" v-on:pageChange="updateArticle"></Page>
     </el-card>
     <el-dialog title="新增文章" :visible.sync="addDialog" width="60%">
       <el-form :model="articleForm" label-width="80px">
         <el-form-item label="文章标题:">
-          <el-input v-model="articleForm.title"></el-input>
+          <el-input v-model="articleForm.article_title"></el-input>
         </el-form-item>
         <el-form-item label="文章标签:">
-          <el-input v-model="articleForm.tags"></el-input>
+          <el-tag
+            :key="tag"
+            v-for="tag in articleForm.article_tags"
+            closable
+            @close="handleClose(tag)"
+            :disable-transitions="false" 
+          >
+            {{ tag }}
+          </el-tag>
+          <el-input
+            class="input-new-tag"
+            v-if="inputVisible"
+            v-model="inputValue"
+            ref="saveTagInput"
+            size="small"
+            @keyup.enter.native="handleInputConfirm"
+            @blur="handleInputConfirm"
+          >
+          </el-input>
+          <el-button
+            v-else
+            class="button-new-tag"
+            size="small"
+            @click="showInput"
+            >添加标签</el-button
+          >
         </el-form-item>
         <el-form-item label="文章内容:">
           <quill-editor v-model="articleForm.article_content"> </quill-editor>
@@ -46,40 +71,97 @@ export default {
   name: "Article",
   data() {
     return {
-      bockInfo: [
-        {
-          title: "这是文章标题",
-          tags: "这是标签",
-          message: "这是信息",
-        },
-        {
-          title: "这是文章标题",
-          tags: "这是标签",
-          message: "这是信息",
-        },
-        {
-          title: "这是文章标题",
-          tags: "这是标签",
-          message: "这是信息",
-        },
-      ],
+      bockInfo: [],
       pageInfo: {
         pageNum: 1,
         pageSize: 5,
         total: 0,
       },
       addDialog: false,
-      articleForm: {},
+      articleForm: {
+        article_tags:[],
+      },
+      inputVisible: false,
+      inputValue: "",
     };
   },
-  created() {},
+  created() {
+    this.getMyArticle();
+  },
   methods: {
-    getMyArticle() {},
+    getMyArticle() {
+      this.$api
+        .getMyArticle({
+          user_id: this.$store.state.user.userInfo.user_id,
+          pageNum: this.pageInfo.pageNum,
+          pageSize: this.pageInfo.pageSize,
+        })
+        .then((res) => {
+          if (res.status !== 200) {
+            return this.$message.error("您还没有发布文章,请重试");
+          } else {
+            res.data.map((item) => {
+              if (item.article_tags) {
+                item.article_tags = item.article_tags.split(",");
+                item.article_time = this.$tools.formatDate(
+                  item.article_time,
+                  "YYYY-MM-DD hh:mm:ss"
+                );
+              }
+            });
+            this.pageInfo.total = res.total;
+            this.bockInfo = res.data;
+          }
+        });
+    },
     addArticle() {
       this.addDialog = true;
     },
+    handleClose(tag) {
+      this.articleForm.article_tags.splice(this.articleForm.article_tags.indexOf(tag),1);
+    },
+    updateArticle(newPageInfo) {
+      this.pageInfo = newPageInfo;
+      this.getMyArticle();
+    },
+    showInput() {
+      this.inputVisible = true;
+      this.$nextTick((_) => {
+        this.$refs.saveTagInput.$refs.input.focus();
+      });
+    },
+
+    handleInputConfirm() {
+      let inputValue = this.inputValue;
+      let flag = true;
+      if (inputValue) {
+        for(let i in this.articleForm.article_tags){
+          if(this.articleForm.article_tags[i].indexOf(inputValue)>-1){
+            this.$message.error('该标签已存在');
+            this.inputVisible = false;
+            flag = false;
+          }
+        }
+        if(flag){
+          this.articleForm.article_tags.push(inputValue);
+        }
+        
+      }
+      this.inputVisible = false;
+      this.inputValue = "";
+    },
     commitArticle() {
-      console.log(this.articleForm);
+      this.articleForm.user_id = this.$store.state.user.userInfo.user_id;
+      this.articleForm.article_tags = this.articleForm.article_tags.join();
+      this.$api.addArticle(this.articleForm).then((res) => {
+        if (res.status !== 200) {
+          return this.$message.error("新增文章失败");
+        } else {
+          this.addDialog = false;
+          this.$message.success("新增文章成功");
+          this.getMyArticle();
+        }
+      });
     },
   },
 };

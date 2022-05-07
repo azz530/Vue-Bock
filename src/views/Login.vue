@@ -59,11 +59,9 @@ export default {
 
             //解析token 获取用户信息
             let user = jwtDecode(res.token);
-
             //将用户信息存储到Vuex
             this.$store.commit("setToken", res.token);
             this.$store.commit("setUser", user);
-
             this.$router.push("/home");
             this.$message.success("登录成功");
           }

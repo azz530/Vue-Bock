@@ -50,6 +50,29 @@ const router = new VueRouter({
           name: 'Video',
           component: resolve => require(['../views/video/Video.vue'], resolve),
         },
+        {
+          path:'/userinfo',
+          name:'UserInfo',
+          component:resolve => require(['../views/user/UserInfo.vue'],resolve),
+          redirect:'/usermsg',
+          children:[
+            {
+              path:'/usermsg',
+              name:'UserMsg',
+              component:resolve => require(['../views/user/UserMsg.vue'],resolve),
+            },
+            {
+              path:'/collection',
+              name:'Collection',
+              component:resolve => require(['../views/user/Collection.vue'],resolve),
+            },
+            {
+              path:'/history',
+              name:'History',
+              component:resolve => require(['../views/user/History.vue'],resolve),
+            },
+          ]
+        },
       ],
     },
   ]

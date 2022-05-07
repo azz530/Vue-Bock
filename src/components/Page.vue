@@ -22,8 +22,14 @@ export default {
       }
   },
   methods: {
-      handleSizeChange(){},
-      handleCurrentChange(){},
+      handleSizeChange(newSize){
+        this.pageInfo.pageSize = newSize;
+        this.$emit('pageChange',this.pageInfo);
+      },
+      handleCurrentChange(newPage){
+        this.pageInfo.pageNum = newPage;
+        this.$emit('pageChange',this.pageInfo);
+      },
   },
   props:{
       pageInfo:{

@@ -14,6 +14,7 @@ export default {
     if(sessionStorage.getItem('state')){
       this.$store.replaceState(Object.assign({},             
       this.$store.state,JSON.parse(sessionStorage.getItem("state"))))
+      sessionStorage.removeItem('state')
     }
     window.addEventListener('beforeunload',()=>{
       sessionStorage.setItem("state",JSON.stringify(this.$store.state))
@@ -26,7 +27,5 @@ export default {
 #app {
   width: 100%;
   height: 100vh;
-  overflow-y: hidden;
-  overflow-x: hidden;
 }
 </style>

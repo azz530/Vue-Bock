@@ -1,4 +1,4 @@
-// import moment from 'moment'
+import moment from 'moment'
 
 //深拷贝
 function deepCopy(obj) {
@@ -6,9 +6,9 @@ function deepCopy(obj) {
     if (obj && typeof obj === 'object') {
         for (let key in obj) {
             if (obj[key] && typeof obj[key] === 'object') {
-                newObj[key] = deepCopy(obj[i]);
+                newObj[key] = deepCopy(obj[key]);
             } else {
-                newObj[key] = obj[i];
+                newObj[key] = obj[key];
             }
         }
     }
@@ -46,13 +46,13 @@ function throttle(fn,delays){
     }
 }
 
-// function formatDate (dateStr,type){ //格式('yyyy-mm-dd')
-//     if(dateStr!=null&&type!=null){
-//         return moment(dateStr).format(type);
-//     } else {
-//         return;
-//     } 
-// }
+function formatDate (dateStr,type){ //格式('yyyy-mm-dd')
+    if(dateStr!=null&&type!=null){
+        return moment(dateStr).format(type);
+    } else {
+        return;
+    } 
+}
 
 
 
@@ -61,5 +61,5 @@ export default {
     deepCopy,
     debounce,
     throttle,
-    // formatDate
+    formatDate
 }
