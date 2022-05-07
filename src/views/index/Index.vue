@@ -33,19 +33,19 @@ export default {
       activeName: "new",
       bockInfo: [
         {
-          title: "这是文章标题",
-          tags: "这是标签",
-          message: "这是信息",
+          article_title: "这是文章标题",
+          article_tags: "这是标签",
+          article_time: "这是信息",
         },
         {
-          title: "这是文章标题",
-          tags: "这是标签",
-          message: "这是信息",
+          article_title: "这是文章标题",
+          article_tags: "这是标签",
+          article_time: "这是信息",
         },
         {
-          title: "这是文章标题",
-          tags: "这是标签",
-          message: "这是信息",
+          article_title: "这是文章标题",
+          article_tags: "这是标签",
+          article_time: "这是信息",
         },
       ],
       pageInfo: {

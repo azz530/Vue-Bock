@@ -4,24 +4,16 @@
       <div class="avatar">
         <el-avatar
           :size="80"
-          :src="
-            $store.state.user.userInfo.avatar
-              ? store.user.userInfo.avatar
-              : defaultAvatar
-          "
+          :src="userInfo.avatar ? userInfo.avatar : defaultAvatar"
         >
         </el-avatar>
       </div>
       <div class="usermsg">
         <h2 class="username">
-          {{ $store.state.user.userInfo.username }}
+          {{ userInfo.username }}
         </h2>
         <div class="usersign">
-          {{
-            $store.state.user.userInfo.usersign
-              ? $store.state.user.userInfo.usersign
-              : "该用户暂无签名"
-          }}
+          {{ userInfo.usersign ? userInfo.usersign : "该用户暂无签名" }}
         </div>
       </div>
     </el-card>
@@ -38,108 +30,48 @@
       <div class="content">
         <div class="item">
           <i
-            :class="
-              $store.state.user.userInfo.sex === '男'
-                ? 'el-icon-male'
-                : 'el-icon-female'
-            "
+            :class="userInfo.sex === '男' ? 'el-icon-male' : 'el-icon-female'"
           ></i>
           性别:
-          <div
-            :class="
-              $store.state.user.userInfo.sex ? 'item_valueActive' : 'item_value'
-            "
-          >
-            {{
-              $store.state.user.userInfo.sex
-                ? $store.state.user.userInfo.sex
-                : "暂未补充个人资料"
-            }}
+          <div :class="userInfo.sex ? 'item_valueActive' : 'item_value'">
+            {{ userInfo.sex ? userInfo.sex : "暂未补充个人资料" }}
           </div>
         </div>
         <div class="item">
           <i class="el-icon-postcard"></i>
           签名:
-          <div
-            :class="
-              $store.state.user.userInfo.usersign
-                ? 'item_valueActive'
-                : 'item_value'
-            "
-          >
-            {{
-              $store.state.user.userInfo.usersign
-                ? $store.state.user.userInfo.usersign
-                : "暂未补充个人资料"
-            }}
+          <div :class="userInfo.usersign ? 'item_valueActive' : 'item_value'">
+            {{ userInfo.usersign ? userInfo.usersign : "暂未补充个人资料" }}
           </div>
         </div>
         <div class="item">
           <i class="el-icon-star-off"></i>
           兴趣:
-          <div
-            :class="
-              $store.state.user.userInfo.hobby
-                ? 'item_valueActive'
-                : 'item_value'
-            "
-          >
-            {{
-              $store.state.user.userInfo.hobby
-                ? $store.state.user.userInfo.hobby
-                : "暂未补充个人资料"
-            }}
+          <div :class="userInfo.hobby ? 'item_valueActive' : 'item_value'">
+            <el-tag :key="tag" v-for="tag in userInfo.hobby">
+              {{ tag }}
+            </el-tag>
           </div>
         </div>
         <div class="item">
           <i class="el-icon-message"></i>
           邮箱:
-          <div
-            :class="
-              $store.state.user.userInfo.email
-                ? 'item_valueActive'
-                : 'item_value'
-            "
-          >
-            {{
-              $store.state.user.userInfo.email
-                ? $store.state.user.userInfo.email
-                : "暂未补充个人资料"
-            }}
+          <div :class="userInfo.email ? 'item_valueActive' : 'item_value'">
+            {{ userInfo.email ? userInfo.email : "暂未补充个人资料" }}
           </div>
         </div>
         <div class="item">
           <i class="el-icon-present"></i>
           生日:
-          <div
-            :class="
-              $store.state.user.userInfo.birthday
-                ? 'item_valueActive'
-                : 'item_value'
-            "
-          >
-            {{
-              $store.state.user.userInfo.birthday
-                ? $store.state.user.userInfo.birthday
-                : "暂未补充个人资料"
-            }}
+          <div :class="userInfo.birthday ? 'item_valueActive' : 'item_value'">
+            {{ userInfo.birthday ? userInfo.birthday : "暂未补充个人资料" }}
           </div>
         </div>
         <div class="item">
           <i class="el-icon-location-information"></i>
           地址:
-          <div
-            :class="
-              $store.state.user.userInfo.address
-                ? 'item_valueActive'
-                : 'item_value'
-            "
-          >
-            {{
-              $store.state.user.userInfo.address
-                ? $store.state.user.userInfo.address
-                : "暂未补充个人资料"
-            }}
+          <div :class="userInfo.address ? 'item_valueActive' : 'item_value'">
+            {{ userInfo.address ? userInfo.address : "暂未补充个人资料" }}
           </div>
         </div>
       </div>
@@ -159,17 +91,16 @@
           <!-- <el-input v-model="EditorForm.avatar"></el-input> -->
           <el-upload
             class="avatar-uploader"
-            action="#"
+            action=""
             :show-file-list="false"
-            :on-success="handleAvatarSuccess"
+            :on-change="handleAvatarChange"
             :before-upload="beforeAvatarUpload"
+            :auto-upload="false"
           >
+            <img v-if="uploadAvatar" :src="uploadAvatar" alt="" />
             <img
-              :src="
-                $store.state.user.userInfo.avatar
-                  ? $store.state.user.userInfo.avatar
-                  : defaultAvatar
-              "
+              v-else
+              :src="userInfo.avatar ? userInfo.avatar : defaultAvatar"
               class="avatar"
             />
           </el-upload>
@@ -213,7 +144,13 @@
           <el-input v-model="EditorForm.email"></el-input>
         </el-form-item>
         <el-form-item label="生日:">
-          <el-date-picker v-model="EditorForm.birthday" type="date" placeholder="选择日期">
+          <el-date-picker
+            v-model="EditorForm.birthday"
+            type="date"
+            placeholder="选择日期"
+            format="yyyy 年 MM 月 dd 日"
+            value-format="yyyy-MM-dd"
+          >
           </el-date-picker>
         </el-form-item>
         <el-form-item label="地址:">
@@ -239,17 +176,43 @@ export default {
       dynamicTags: ["标签一", "标签二", "标签三"],
       inputVisible: false,
       inputValue: "",
+      uploadAvatar: "",
+      userInfo: {},
+      file: {},
     };
   },
+  created() {
+    this.getUserInfo();
+  },
   methods: {
+    getUserInfo() {
+      this.$api
+        .getUserInfo({ user_id: this.$store.state.user.userInfo.user_id })
+        .then((res) => {
+          if (res.status !== 200) {
+            return this.$message.error("获取用户信息失败");
+          } else {
+            res.data.birthday = this.$tools.formatDate(
+              res.data.birthday,
+              "YYYY-MM-DD"
+            );
+            res.data.hobby = res.data.hobby.split(",");
+            this.userInfo = res.data;
+            this.$store.commit("setUser", this.userInfo);
+          }
+        });
+    },
+
     openEditorDialog() {
       this.editDialog = true;
-      this.EditorForm = this.$tools.deepCopy(this.$store.state.user.userInfo);
-      this.EditorForm.hobby = [];
+      this.EditorForm = this.$tools.deepCopy(this.userInfo);
     },
 
     beforeAvatarUpload() {},
-    handleAvatarSuccess() {},
+    handleAvatarChange(file) {
+      this.uploadAvatar = URL.createObjectURL(file.raw);
+      this.file = file;
+    },
     handleClose(tag) {
       this.EditorForm.hobby.splice(this.EditorForm.hobby.indexOf(tag), 1);
     },
@@ -263,13 +226,50 @@ export default {
 
     handleInputConfirm() {
       let inputValue = this.inputValue;
+      let flag = true;
       if (inputValue) {
-        this.EditorForm.hobby.push(inputValue);
+        for (let i in this.EditorForm.hobby) {
+          if (this.EditorForm.hobby[i].indexOf(inputValue) > -1) {
+            this.$message.error("该标签已存在");
+            this.inputVisible = false;
+            flag = false;
+          }
+        }
+        if (flag) {
+          this.EditorForm.hobby.push(inputValue);
+        }
       }
       this.inputVisible = false;
       this.inputValue = "";
     },
-    commitEditorForm() {},
+    commitEditorForm() {
+      let userForm = new FormData();
+      if (this.file) {
+        userForm.append("avatar", this.file.raw);
+      }
+      this.EditorForm.birthday = this.$tools.formatDate(
+        this.EditorForm.birthday,
+        "YYYY-MM-DD"
+      );
+      userForm.append("user_id", this.EditorForm.user_id);
+      userForm.append("username", this.EditorForm.username);
+      userForm.append("sex", this.EditorForm.sex);
+      userForm.append("usersign", this.EditorForm.usersign);
+      userForm.append("hobby", this.EditorForm.hobby);
+      userForm.append("email", this.EditorForm.email);
+      userForm.append("birthday", this.EditorForm.birthday);
+      userForm.append("address", this.EditorForm.address);
+      this.$api.editorUserInfo(userForm).then((res) => {
+        if (res.status !== 200) {
+          this.$message.error("修改个人资料失败");
+          this.editDialog = false;
+        } else {
+          this.$message.success("修改个人资料成功");
+          this.editDialog = false;
+          this.getUserInfo();
+        }
+      });
+    },
   },
 };
 </script>
@@ -320,6 +320,9 @@ export default {
         margin-bottom: 25px;
         display: flex;
         align-items: center;
+        .el-tag {
+          margin-right: 10px;
+        }
         i {
           font-size: 16px;
           margin-right: 5px;

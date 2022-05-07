@@ -19,7 +19,7 @@
         <el-avatar
           :src="
             $store.state.user.userInfo.avatar
-              ? store.user.userInfo.avatar
+              ? $store.state.user.userInfo.avatar
               : defaultAvatar
           "
           :size="45"
@@ -48,12 +48,33 @@ export default {
   },
   methods: {
     handleCommand(command) {
-      if(command === '个人中心'){
-        this.$router.push('/userinfo');
-      } else if(command === '修改密码'){
-
-      } else if(command === '退出登录'){
-
+      if (command === "个人中心") {
+        this.$router.push("/userinfo");
+      } else if (command === "修改密码") {
+      } else if (command === "退出登录") {
+        this.$confirm("是否退出登录", "提示", {
+          confirmButtonText: "确定",
+          cancelButtonText: "取消",
+          type: "warning",
+        })
+          .then((res) => {
+            // if (res === "confirm") {
+            //   this.$api
+            //     .logout({user_id:this.$store.state.user.userInfo.user_id})
+            //     .then((res) => {
+            //       console.log(res);
+            //       if (res.status !== 200) {
+            //         return this.$message.error("退出登录失败");
+            //       } else {
+            //         this.$message.success("退出登录成功");
+            //         window.sessionStorage.removeItem('token');
+            //         window.sessionStorage.removeItem('state');
+            //         this.$router.push("/login");
+            //       }
+            //     });
+            // }
+          })
+          .catch((err) => err);
       }
     },
   },
@@ -86,11 +107,11 @@ export default {
     box-shadow: 0px 0px 3px rgba(5, 5, 5, 0.5);
     align-items: center;
     .tags {
-     .el-menu{
-       .el-menu-item{
-         padding: 0px 10px;
-       }
-     }
+      .el-menu {
+        .el-menu-item {
+          padding: 0px 10px;
+        }
+      }
     }
     .user {
       position: absolute;
