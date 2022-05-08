@@ -86,7 +86,7 @@ export default {
   .container {
     min-height: 60px;
     display: flex;
-    box-shadow: 0px 3px 3px rgba(5, 5, 5, 0.5);
+    box-shadow: 0px 2px 3px rgba(5, 5, 5, 0.5);
     align-items: center;
     .tags {
       margin-left: 300px;

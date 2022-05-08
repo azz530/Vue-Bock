@@ -18,7 +18,7 @@
         </div>
       </div>
       <el-divider></el-divider>
-      <BockItem :bockInfo="bockInfo"></BockItem>
+      <BockItem :bockInfo="bockInfo" :isMy="true"></BockItem>
       <Page :pageInfo="pageInfo" v-on:pageChange="updateArticle"></Page>
     </el-card>
     <el-dialog title="新增文章" :visible.sync="addDialog" width="60%">

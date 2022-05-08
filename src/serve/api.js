@@ -8,6 +8,9 @@ const editorUserInfo = (data) => service.post('my/editorUserInfo',data);
 const getUserInfo = (data) => service.get('my/getUserInfo',{params:data});
 const getMyArticle = (data) => service.get('my/getMyArticle',{params:data});
 const addArticle = (data) => service.post('my/addArticle',data);
+const getAllArticle = (data) => service.get('my/getAllArticle',{params:data});
+const addCollection = (data) => service.post('my/addCollection',data);
+const delCollection = (data) => service.post('my/delCollection',data);
 
 export default {
     login,
@@ -17,4 +20,7 @@ export default {
     getUserInfo,
     getMyArticle,
     addArticle,
+    getAllArticle,
+    addCollection,
+    delCollection,
 }

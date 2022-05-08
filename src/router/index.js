@@ -75,6 +75,11 @@ const router = new VueRouter({
         },
       ],
     },
+    {
+      path: '/articleDetails',
+      name: 'ArticleDetails',
+      component: resolve => require(['../views/ArticleDetails.vue'], resolve),
+    }
   ]
 })
 
