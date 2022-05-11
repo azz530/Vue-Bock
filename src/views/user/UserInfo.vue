@@ -12,6 +12,18 @@
             <i class="el-icon-user"></i>
             <span slot="title">个人资料</span>
           </el-menu-item>
+          <el-menu-item index="/article">
+            <i class="el-icon-time"></i>
+            <span slot="title">我的文章</span>
+          </el-menu-item>
+          <el-menu-item index="/album">
+            <i class="el-icon-time"></i>
+            <span slot="title">我的相册</span>
+          </el-menu-item>
+          <el-menu-item index="/video">
+            <i class="el-icon-time"></i>
+            <span slot="title">我的视频</span>
+          </el-menu-item>
           <el-menu-item index="/collection">
             <i class="el-icon-collection-tag"></i>
             <span slot="title">我的收藏</span>
@@ -23,7 +35,7 @@
         </el-menu>
       </el-aside>
       <el-main>
-          <router-view></router-view>
+        <router-view></router-view>
       </el-main>
     </el-container>
   </div>
@@ -44,8 +56,8 @@ export default {
   .container {
     .el-aside {
       height: 98vh;
-      .el-menu{
-          height: 100%;
+      .el-menu {
+        height: 100%;
       }
     }
   }

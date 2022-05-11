@@ -8,9 +8,6 @@
         :router="true"
       >
         <el-menu-item index="/index">首页</el-menu-item>
-        <el-menu-item index="/article">我的文章</el-menu-item>
-        <el-menu-item index="/album">我的相册</el-menu-item>
-        <el-menu-item index="/video">我的视频</el-menu-item>
         <el-menu-item index="/userinfo">个人中心</el-menu-item>
       </el-menu>
     </div>

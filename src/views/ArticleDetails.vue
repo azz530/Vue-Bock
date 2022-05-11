@@ -37,6 +37,20 @@
             </div>
           </div>
         </el-card>
+
+        <el-card class="comments">
+          <div class="top">
+            <h2>评论区</h2>
+            <el-button icon="el-icon-edit" type="primary" @click="addComments" size="small"
+              >发表评论</el-button
+            >
+          </div>
+          <el-divider></el-divider>
+          <Comments
+            :CommentsInfo="ArticleDetails.comments"
+            v-on:updateComments="updateComment"
+          ></Comments>
+        </el-card>
       </div>
       <div class="right_content">
         <el-card>
@@ -57,6 +71,13 @@
         </el-card>
       </div>
     </div>
+    <el-dialog title="新增文章" :visible.sync="addDialog" width="60%">
+      <quill-editor v-model="Comments_content"> </quill-editor>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="addDialog = false">取 消</el-button>
+        <el-button type="primary" @click="commitComments">确 定</el-button>
+      </div>
+    </el-dialog>
   </div>
 </template>
 
@@ -66,12 +87,15 @@ export default {
   data() {
     return {
       ArticleDetails: {},
+      addDialog: false,
+      Comments_content: "",
     };
   },
   created() {
     this.getArticleDetails();
   },
   methods: {
+    //获取文章信息、评论以及回复信息
     getArticleDetails() {
       this.$api
         .getArticleDetails({
@@ -89,10 +113,28 @@ export default {
               res.data.article_time,
               "YYYY-MM-DD  HH:mm"
             );
+            console.log(res);
+            res.data.comments.map((item) => {
+              item.showReplay = false;
+              item.replayContent = "";
+              item.comments_time = this.$tools.formatDate(
+                item.comments_time,
+                "YYYY-MM-DD  HH:mm"
+              );
+              item.replay.map((i) => {
+                i.showReplay = false;
+                i.replayContent = "";
+                i.replay_time = this.$tools.formatDate(
+                  i.replay_time,
+                  "YYYY-MM-DD  HH:mm"
+                );
+              });
+            });
             this.ArticleDetails = res.data;
           }
         });
     },
+    //收藏事件
     addCollection() {
       if (this.ArticleDetails.isCollection) {
         this.$api
@@ -124,6 +166,35 @@ export default {
           });
       }
     },
+    addComments() {
+      this.addDialog = true;
+    },
+    //更新文章评论内容
+    updateComment() {
+      this.getArticleDetails();
+    },
+    //发布评论
+    commitComments() {
+      if (this.Comments_content) {
+        this.$api
+          .addComments({
+            comments_uid: this.$store.state.user.userInfo.user_id,
+            comments_articleid: this.$route.query.id,
+            comments_content: this.Comments_content,
+          })
+          .then((res) => {
+            if (res.status !== 200) {
+              return this.$message.error("发表评论失败");
+            } else {
+              this.$message.success("发表评论成功");
+              this.addDialog = false;
+              this.getArticleDetails();
+            }
+          });
+      } else {
+        return this.$message.error("请填写评论内容");
+      }
+    },
   },
 };
 </script>
@@ -131,7 +202,9 @@ export default {
 <style lang="less" scoped>
 .container {
   .main {
+    background: #f1f6fa96;
     display: flex;
+    min-height: 100vh;
     .left_content {
       width: 65vw;
       min-height: 80vh;
@@ -179,6 +252,14 @@ export default {
             color: rgb(122, 186, 247);
             cursor: pointer;
           }
+        }
+      }
+      .comments{
+        margin-top: 20px;
+        .top{
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
         }
       }
     }

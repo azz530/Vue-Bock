@@ -36,21 +36,6 @@ const router = new VueRouter({
           component: resolve => require(['../views/index/Index.vue'], resolve),
         },
         {
-          path: '/article',
-          name: 'Article',
-          component: resolve => require(['../views/article/Article.vue'], resolve),
-        },
-        {
-          path: '/album',
-          name: 'Album',
-          component: resolve => require(['../views/album/Album.vue'], resolve),
-        },
-        {
-          path: '/video',
-          name: 'Video',
-          component: resolve => require(['../views/video/Video.vue'], resolve),
-        },
-        {
           path:'/userinfo',
           name:'UserInfo',
           component:resolve => require(['../views/user/UserInfo.vue'],resolve),
@@ -60,6 +45,21 @@ const router = new VueRouter({
               path:'/usermsg',
               name:'UserMsg',
               component:resolve => require(['../views/user/UserMsg.vue'],resolve),
+            },
+            {
+              path: '/article',
+              name: 'Article',
+              component: resolve => require(['../views/user/MyArticle.vue'], resolve),
+            },
+            {
+              path: '/album',
+              name: 'Album',
+              component: resolve => require(['../views/user/MyAlbum.vue'], resolve),
+            },
+            {
+              path: '/video',
+              name: 'Video',
+              component: resolve => require(['../views/user/MyVideo.vue'], resolve),
             },
             {
               path:'/collection',

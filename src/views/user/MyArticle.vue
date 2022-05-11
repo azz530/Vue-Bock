@@ -171,9 +171,7 @@ export default {
 .container {
   display: flex;
   .main {
-    margin-top: 30px;
-    margin-left: 40px;
-    width: 70vw;
+    width: 90vw;
     .top {
       display: flex;
       justify-content: space-between;

@@ -196,7 +196,9 @@ export default {
               res.data.birthday,
               "YYYY-MM-DD"
             );
-            res.data.hobby = res.data.hobby.split(",");
+            if (res.data.hobby) {
+              res.data.hobby = res.data.hobby.split(",");
+            }
             this.userInfo = res.data;
             this.$store.commit("setUser", this.userInfo);
           }
@@ -206,6 +208,7 @@ export default {
     openEditorDialog() {
       this.editDialog = true;
       this.EditorForm = this.$tools.deepCopy(this.userInfo);
+      this.EditorForm.hobby = [];
     },
 
     beforeAvatarUpload() {},

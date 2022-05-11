@@ -15,6 +15,12 @@ const addCollection = (data) => service.post('my/addCollection',data);//将文�
 const delCollection = (data) => service.post('my/delCollection',data);//将文章取消收藏
 const getArticleDetails = (data) => service.get('my/getArticleDetails',{params:data});//获取文章详细页
 
+const addComments = (data) => service.post('my/addComments',data);//对文章发表评论
+const addReplay = (data) => service.post('my/addReplay',data);//对文章评论的回复
+
+const addAlbum = (data) => service.post('my/addAlbum',data);//新增相册
+const getMyAlbum = (data) => service.get('my/getMyAlbum',{params:data});//新增相册
+
 export default {
     login,
     register,
@@ -27,4 +33,9 @@ export default {
     addCollection,
     delCollection,
     getArticleDetails,
+    addComments,
+    addReplay,
+    addAlbum,
+    getMyAlbum,
+    
 }
