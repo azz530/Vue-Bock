@@ -13,15 +13,15 @@
             <span slot="title">个人资料</span>
           </el-menu-item>
           <el-menu-item index="/article">
-            <i class="el-icon-time"></i>
+            <i class="el-icon-edit"></i>
             <span slot="title">我的文章</span>
           </el-menu-item>
           <el-menu-item index="/album">
-            <i class="el-icon-time"></i>
+            <i class="el-icon-camera"></i>
             <span slot="title">我的相册</span>
           </el-menu-item>
           <el-menu-item index="/video">
-            <i class="el-icon-time"></i>
+            <i class="el-icon-video-camera"></i>
             <span slot="title">我的视频</span>
           </el-menu-item>
           <el-menu-item index="/collection">

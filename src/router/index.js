@@ -3,6 +3,12 @@ import VueRouter from 'vue-router'
 
 Vue.use(VueRouter)
 
+//解决路由重复点击报错问题
+const originalPush = VueRouter.prototype.push
+VueRouter.prototype.push = function push(location) {
+  return originalPush.call(this, location).catch(err => err)
+}
+
 const router = new VueRouter({
   routes: [
     {
@@ -55,6 +61,13 @@ const router = new VueRouter({
               path: '/album',
               name: 'Album',
               component: resolve => require(['../views/user/MyAlbum.vue'], resolve),
+              children:[
+                {
+                  path: '/album_photo/:album_id',
+                  name: 'AlbumPhoto',
+                  component: resolve => require(['../views/user/AlbumPhoto.vue'], resolve),
+                }
+              ]
             },
             {
               path: '/video',

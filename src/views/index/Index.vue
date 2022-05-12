@@ -35,6 +35,7 @@ export default {
       pageInfo: {
         pageNum: 1,
         pageSize: 5,
+        pageSizes:[5,10],
         total: 0,
       },
       isNew:true,

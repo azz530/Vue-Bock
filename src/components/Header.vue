@@ -55,21 +55,21 @@ export default {
           type: "warning",
         })
           .then((res) => {
-            // if (res === "confirm") {
-            //   this.$api
-            //     .logout({user_id:this.$store.state.user.userInfo.user_id})
-            //     .then((res) => {
-            //       console.log(res);
-            //       if (res.status !== 200) {
-            //         return this.$message.error("退出登录失败");
-            //       } else {
-            //         this.$message.success("退出登录成功");
-            //         window.sessionStorage.removeItem('token');
-            //         window.sessionStorage.removeItem('state');
-            //         this.$router.push("/login");
-            //       }
-            //     });
-            // }
+            if (res === "confirm") {
+              this.$api
+                .logout({user_id:this.$store.state.user.userInfo.user_id})
+                .then((res) => {
+                  console.log(res);
+                  if (res.status !== 200) {
+                    return this.$message.error("退出登录失败");
+                  } else {
+                    this.$message.success("退出登录成功");
+                    window.sessionStorage.removeItem('token');
+                    window.sessionStorage.removeItem('state');
+                    this.$router.push("/login");
+                  }
+                });
+            }
           })
           .catch((err) => err);
       }

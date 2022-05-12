@@ -88,7 +88,6 @@
           <el-input v-model="EditorForm.username"></el-input>
         </el-form-item>
         <el-form-item label="头像:">
-          <!-- <el-input v-model="EditorForm.avatar"></el-input> -->
           <el-upload
             class="avatar-uploader"
             action=""

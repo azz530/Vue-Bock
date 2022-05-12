@@ -4,7 +4,7 @@
       @size-change="handleSizeChange"
       @current-change="handleCurrentChange"
       :current-page="pageInfo.pageNum"
-      :page-sizes="[5, 10]"
+      :page-sizes="pageInfo.pageSizes"
       :page-size="pageInfo.pageSize"
       layout="total, sizes, prev, pager, next, jumper"
       :total="pageInfo.total"

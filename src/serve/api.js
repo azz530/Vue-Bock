@@ -19,7 +19,13 @@ const addComments = (data) => service.post('my/addComments',data);//对文章发
 const addReplay = (data) => service.post('my/addReplay',data);//对文章评论的回复
 
 const addAlbum = (data) => service.post('my/addAlbum',data);//新增相册
-const getMyAlbum = (data) => service.get('my/getMyAlbum',{params:data});//新增相册
+const getMyAlbum = (data) => service.get('my/getMyAlbum',{params:data});//获取用户相册
+const getAlbumDetails = (data) => service.get('my/getAlbumDetails',{params:data});//获取相册当中的相片
+const uploadPhoto = (data) => service.post('my/uploadPhoto',data);//新增相片
+
+const delPhoto = (data) => service.delete('my/delPhoto',{params:data});//删除相片
+const delAlbum = (data) => service.delete('my/delAlbum',{params:data});//删除相册
+const changeAlbum = (data) => service.post('my/changeAlbum',data);//删除相册
 
 export default {
     login,
@@ -37,5 +43,9 @@ export default {
     addReplay,
     addAlbum,
     getMyAlbum,
-    
+    getAlbumDetails,
+    uploadPhoto,
+    delPhoto,
+    delAlbum,
+    changeAlbum,
 }
