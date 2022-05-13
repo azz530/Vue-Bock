@@ -2,7 +2,7 @@
   <div class="container">
     <div class="tags">
       <el-menu
-        :default-active="activeIndex"
+        :default-active="$route.path"
         class="el-menu-demo"
         mode="horizontal"
         :router="true"
@@ -40,7 +40,7 @@ export default {
   data() {
     return {
       defaultAvatar: defaultAvatar,
-      activeIndex: "/index",
+      active:'/index'
     };
   },
   methods: {

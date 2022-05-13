@@ -70,11 +70,6 @@ const router = new VueRouter({
               ]
             },
             {
-              path: '/video',
-              name: 'Video',
-              component: resolve => require(['../views/user/MyVideo.vue'], resolve),
-            },
-            {
               path:'/collection',
               name:'Collection',
               component:resolve => require(['../views/user/Collection.vue'],resolve),

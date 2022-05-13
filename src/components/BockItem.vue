@@ -41,6 +41,10 @@ export default {
   methods: {
     toArticleDetails(id){
       this.$router.replace({path:'/articleDetails',query:{id}});
+      this.$api.addHistory({
+        article_id:id,
+         user_id: this.$store.state.user.userInfo.user_id,
+      }).then()
     },
     //添加收藏
     addCollection(id, isCollection) {
@@ -75,6 +79,8 @@ export default {
       }
     },
 
+
+    
   },
 };
 </script>

@@ -3,9 +3,8 @@
     <el-container>
       <el-aside width="180px">
         <el-menu
-          default-active="/usermsg"
+          :default-active="$route.path"
           class="el-menu-vertical-demo"
-          background-color="#fdfefd"
           :router="true"
         >
           <el-menu-item index="/usermsg">
@@ -19,10 +18,6 @@
           <el-menu-item index="/album">
             <i class="el-icon-camera"></i>
             <span slot="title">我的相册</span>
-          </el-menu-item>
-          <el-menu-item index="/video">
-            <i class="el-icon-video-camera"></i>
-            <span slot="title">我的视频</span>
           </el-menu-item>
           <el-menu-item index="/collection">
             <i class="el-icon-collection-tag"></i>

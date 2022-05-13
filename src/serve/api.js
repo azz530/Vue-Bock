@@ -27,6 +27,10 @@ const delPhoto = (data) => service.delete('my/delPhoto',{params:data});//删除�
 const delAlbum = (data) => service.delete('my/delAlbum',{params:data});//删除相册
 const changeAlbum = (data) => service.post('my/changeAlbum',data);//删除相册
 
+const getMyCollection = (data) => service.get('my/getMyCollection',{params:data});//获取收藏
+const getMyHistory = (data) => service.get('my/getMyHistory',{params:data});//获取浏览记录
+const addHistory = (data) => service.post('my/addHistory',data);//添加浏览
+
 export default {
     login,
     register,
@@ -48,4 +52,7 @@ export default {
     delPhoto,
     delAlbum,
     changeAlbum,
+    getMyCollection,
+    getMyHistory,
+    addHistory,
 }
