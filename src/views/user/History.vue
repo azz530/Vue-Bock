@@ -74,6 +74,7 @@ export default {
 .container {
   .main {
     min-height: 30vh;
+    width: 88vw;
     .top {
       h3 {
         font-weight: 400;

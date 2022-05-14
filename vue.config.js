@@ -1,7 +1,9 @@
 
 module.exports ={
     outputDir: './dist',//默认打包的文件名
-    assetsDir: 'assets',//设置静态资源在同一个文件夹
+    devServer: {
+        port: 8081,
+    },
     lintOnSave: process.env.NODE_ENV === "production" ? false : true,//是否开启eslint保存检测,有效值: true || false || 'error'
     //打包生成的清除map文件
     productionSourceMap:false,

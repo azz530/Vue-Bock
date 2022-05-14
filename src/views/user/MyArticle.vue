@@ -172,7 +172,7 @@ export default {
 .container {
   display: flex;
   .main {
-    width: 90vw;
+    width: 88vw;
     .top {
       display: flex;
       justify-content: space-between;

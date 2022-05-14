@@ -81,6 +81,7 @@ export default {
 @media screen and (min-width: 800px) {
   .container {
     min-height: 60px;
+    width: 100vw;
     display: flex;
     box-shadow: 0px 2px 3px rgba(5, 5, 5, 0.5);
     align-items: center;

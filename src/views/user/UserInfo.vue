@@ -30,7 +30,9 @@
         </el-menu>
       </el-aside>
       <el-main>
-        <router-view></router-view>
+        <transition name="slide-fade">
+          <router-view></router-view>
+        </transition>
       </el-main>
     </el-container>
   </div>
@@ -50,9 +52,24 @@ export default {
 @media screen and (min-width: 800px) {
   .container {
     .el-aside {
-      height: 98vh;
+      height: 100vh;
       .el-menu {
         height: 100%;
+      }
+    }
+    .el-main {
+      width: 100%;
+      .slide-fade-enter-active {
+        transition: all 0.8s ease;
+      }
+      .slide-fade-leave-active {
+        transition: all 0.2s cubic-bezier(1, 0.5, 0.8, 1);
+         display: none;
+      }
+      .slide-fade-enter,
+      .slide-fade-leave-to {
+        transform: translateX(20px);
+        opacity: 0;
       }
     }
   }
