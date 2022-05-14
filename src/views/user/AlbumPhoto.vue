@@ -173,7 +173,6 @@ export default {
         });
         photoForm.append("album_id", this.$route.params.album_id);
         this.$api.uploadPhoto(photoForm).then((res) => {
-          console.log(res);
           if (res.status === 200) {
             this.$message.success("上传成功");
             this.addDialog = false;

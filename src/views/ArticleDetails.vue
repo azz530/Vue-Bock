@@ -113,7 +113,6 @@ export default {
               res.data.article_time,
               "YYYY-MM-DD  HH:mm"
             );
-            console.log(res);
             res.data.comments.map((item) => {
               item.showReplay = false;
               item.replayContent = "";

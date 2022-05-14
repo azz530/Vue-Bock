@@ -100,7 +100,6 @@ export default {
       albumform.append("album_description", this.albumForm.album_description);
       albumform.append("album_id", this.albumForm.album_id);
       this.$api.changeAlbum(albumform).then((res) => {
-        console.log(res);
         if (res.status !== 200) {
           return this.$message.error("修改相册信息失败");
         } else {

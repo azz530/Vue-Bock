@@ -43,7 +43,6 @@ export default {
           pageSize: this.pageInfo.pageSize,
         })
         .then((res) => {
-          console.log(res);
           if (res.status === 200) {
             res.data.map((item) => {
               if (item.article_tags) {

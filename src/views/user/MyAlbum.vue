@@ -106,7 +106,6 @@ export default {
         albumform.append("album_description", this.albumForm.album_description);
         albumform.append("user_id", this.$store.state.user.userInfo.user_id);
         this.$api.addAlbum(albumform).then((res) => {
-          console.log(res);
           if (res.status !== 200) {
             return this.$message.error("新建相册失败");
           } else {

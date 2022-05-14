@@ -94,7 +94,6 @@ export default {
       ) {
         if (this.userForm.password === this.userForm.checkpassword) {
           this.$api.register(this.userForm).then((res) => {
-            console.log(res);
             if (res.status !== 200) {
               if (res.status === 403) {
                 return this.$message.error("该用户名已被使用");

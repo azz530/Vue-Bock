@@ -59,7 +59,6 @@ export default {
               this.$api
                 .logout({user_id:this.$store.state.user.userInfo.user_id})
                 .then((res) => {
-                  console.log(res);
                   if (res.status !== 200) {
                     return this.$message.error("退出登录失败");
                   } else {
