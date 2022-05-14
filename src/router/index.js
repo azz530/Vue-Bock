@@ -16,6 +16,10 @@ const router = new VueRouter({
       redirect: '/login',
     },
     {
+      path: '/404',
+      component: resolve => require(['../views/404.vue'], resolve),
+    },
+    {
       path: '/login',
       name: 'Login',
       component: resolve => require(['../views/Login.vue'], resolve),
@@ -87,6 +91,11 @@ const router = new VueRouter({
       path: '/articleDetails',
       name: 'ArticleDetails',
       component: resolve => require(['../views/ArticleDetails.vue'], resolve),
+    },
+
+    {
+      path: '*',
+      redirect: '/404'
     }
   ]
 })

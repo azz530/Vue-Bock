@@ -14,7 +14,7 @@ function endLoading(){
 
 let service = axios.create({
     // baseURL: process.env.NODE_ENV === 'development' ? 'http://127.0.0.1:3000/' : '',
-    baseURL:'http://127.0.0.1:3000/',
+    baseURL:process.env.NODE_ENV === 'development' ? 'http://127.0.0.1:3000/' : '',
     timeout:3000,
 })
 service.interceptors.request.use(config=>{
