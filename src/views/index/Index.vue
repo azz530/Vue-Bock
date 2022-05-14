@@ -19,9 +19,13 @@
       </el-card>
     </div>
     <div class="right_content">
-      <el-card>msg1</el-card>
-      <el-card>msg2</el-card>
-      <el-card>msg3</el-card>
+      <el-card>
+        <h3>本站公告:</h3>
+        <el-divider></el-divider>
+        <div class="content">
+          本站仅用于个人学习使用，希望大家能好好使用，切勿恶意传播不良言论。
+        </div>
+      </el-card>
     </div>
   </div>
 </template>
@@ -106,7 +110,10 @@ export default {
   .right_content {
     margin-left: 60px;
     margin-top: 30px;
-    min-width: 20vw;
+    width: 20vw;
+    h3{
+      font-weight: 400;
+    }
   }
 }
 </style>
